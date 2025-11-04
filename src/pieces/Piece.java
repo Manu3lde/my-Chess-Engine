@@ -22,7 +22,7 @@ public class Piece {
         java.io.InputStream is = null;
         try {
             // Try loading from classpath using the class's resource path.
-            is = Piece.class.getResourceAsStream("../res/pieces.png");
+            is = Piece.class.getResourceAsStream("../res/PiecesHD.png");
             if (is == null) {
                 // Resource not found: create a small placeholder so code using `sheet` won't NPE.
                 System.err.println("Resource 'pieces.png' not found on classpath; using placeholder image.");
