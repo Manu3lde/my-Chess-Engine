@@ -2,15 +2,20 @@ package main;
 
 import javax.swing.*;
 
+import pieces.Bishop;
+import pieces.King;
 import pieces.Knight;
+import pieces.Pawn;
 import pieces.Piece;
+import pieces.Queen;
+import pieces.Rook;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Board extends JPanel {
 
-    public int tileSize = 80;
+    public int tileSize = 85;
     int cols = 8;
     int rows = 8;
 
@@ -21,8 +26,42 @@ public class Board extends JPanel {
         addPieces();
     }
     public void addPieces(){
-        pieceList.add(new Knight(this, 1, 0, true));
-        pieceList.add(new Knight(this, 3, 0, false));
+        
+        pieceList.add(new Rook(this, 0, 0, false));
+        pieceList.add(new Knight(this, 1, 0, false));
+        pieceList.add(new Bishop(this, 2, 0, false));
+        pieceList.add(new King(this, 3, 0, false));
+        pieceList.add(new Queen(this, 4, 0, false));
+        pieceList.add(new Bishop(this, 5, 0, false));
+        pieceList.add(new Knight(this, 6, 0, false));
+        pieceList.add(new Rook(this, 7, 0, false));
+        pieceList.add(new Pawn(this, 7, 1, false));
+        pieceList.add(new Pawn(this, 6, 1, false));
+        pieceList.add(new Pawn(this, 5, 1, false));
+        pieceList.add(new Pawn(this, 4, 1, false));
+        pieceList.add(new Pawn(this, 3, 1, false));
+        pieceList.add(new Pawn(this, 2, 1, false));
+        pieceList.add(new Pawn(this, 1, 1, false));
+        pieceList.add(new Pawn(this, 0, 1, false));
+        //white
+        pieceList.add(new Rook(this, 0, 7, true));
+        pieceList.add(new Knight(this, 1, 7, true));
+        pieceList.add(new Bishop(this, 2, 7, true));
+        pieceList.add(new King(this, 3, 7, true));
+        pieceList.add(new Queen(this, 4, 7, true));
+        pieceList.add(new Bishop(this, 5, 7, true));
+        pieceList.add(new Knight(this, 6, 7, true));
+        pieceList.add(new Rook(this, 7, 7, true));
+        pieceList.add(new Pawn(this, 7, 6, true));
+        pieceList.add(new Pawn(this, 6, 6, true));
+        pieceList.add(new Pawn(this, 5, 6, true));
+        pieceList.add(new Pawn(this, 4, 6, true));
+        pieceList.add(new Pawn(this, 3, 6, true));
+        pieceList.add(new Pawn(this, 2, 6, true));
+        pieceList.add(new Pawn(this, 1, 6, true));
+        pieceList.add(new Pawn(this, 0, 6, true));
+
+
     }
 
     public void paintComponent(Graphics g){

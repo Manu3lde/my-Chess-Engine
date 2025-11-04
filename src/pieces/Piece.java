@@ -19,10 +19,32 @@ public class Piece {
 
     BufferedImage sheet;
     {
+        java.io.InputStream is = null;
         try {
-            sheet = ImageIO.read(ClassLoader.getSystemResourceAsStream("pieces.png"));
+            // Try loading from classpath using the class's resource path.
+            is = Piece.class.getResourceAsStream("../res/pieces.png");
+            if (is == null) {
+                // Resource not found: create a small placeholder so code using `sheet` won't NPE.
+                System.err.println("Resource 'pieces.png' not found on classpath; using placeholder image.");
+                // create placeholder with two rows (height 160) so subimage calls for both
+                // white and black rows won't fail (sheetScale = width / 6)
+                sheet = new BufferedImage(480, 160, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g = sheet.createGraphics();
+                g.setColor(Color.MAGENTA);
+                g.fillRect(0, 0, sheet.getWidth(), sheet.getHeight());
+                g.dispose();
+            } else {
+                sheet = ImageIO.read(is);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            if (sheet == null) {
+                sheet = new BufferedImage(480, 160, BufferedImage.TYPE_INT_ARGB);
+            }
+        } finally {
+            if (is != null) {
+                try { is.close(); } catch (IOException ignored) {}
+            }
         }
     }
 
