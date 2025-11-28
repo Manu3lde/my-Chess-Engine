@@ -34,6 +34,7 @@ public class Board extends JPanel {
         addPieces();
     }
 
+
     public Piece  getPiece(int col, int row){
         for(Piece piece : pieceList){
             if(piece.col == col && piece.row == row)
@@ -62,6 +63,10 @@ public class Board extends JPanel {
         if(sameTeam(move.piece, move.capture)){
             return false;
         }
+        if(!move.piece.isValidMovement(move.newCol, move.newRow)){
+            return false;
+        }
+        if(move.piece.moveCollidesWithPiece(move.newCol, move.newRow)){return false;}
 
         return true;
     }
@@ -115,12 +120,33 @@ public class Board extends JPanel {
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         
+        //paint the board
         for(int r = 0; r < rows; r++)
             for(int c = 0; c < cols; c++){
                 g2d.setColor((c+r)%2 == 0? new Color(199, 170, 120): new Color(131, 92, 56));
                 g2d.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
             }
+
+        //paint valid moves for piece
         
+        char[] charsToMove = new char[1];
+        charsToMove[0] = 'x';
+        if(selectedPiece != null)
+        for(int r = 0; r < rows; r++){
+            for(int c = 0; c < cols; c++){
+                if(isValidMove(new Move(this, selectedPiece, c, r))) {
+
+                    // g2d.setColor(new Color(60, 200, 70));
+                    g2d.setColor(new Color(100, 204, 50, 150));
+                    // g2d.setColor(new Color(60f, 200f, 70f, 0.5f));
+                    // g2d.fillRect(c * tileSize + (tileSize/2 - 2*c), r * tileSize + (tileSize/2 - 2*r), tileSize/5, tileSize/5);
+                    g2d.fillArc(c * tileSize, r * tileSize, tileSize, tileSize, 0, 360);
+                }
+            }
+        }
+            
+
+        //paint pieces
         for(Piece piece: pieceList ){
             piece.paint(g2d);
         }
