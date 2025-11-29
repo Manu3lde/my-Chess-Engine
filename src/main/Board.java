@@ -51,9 +51,11 @@ public class Board extends JPanel {
 
         move.piece.xPos = move.newCol * tileSize;
         move.piece.yPos = move.newRow * tileSize;
-
+        move.piece.isFirstMove = false;
         capture(move);
     }
+
+
 
     public void capture(Move move){
         pieceList.remove(move.capture);
