@@ -7,6 +7,7 @@ public class Main {
         JFrame frame = new JFrame();
         frame.getContentPane().setBackground(Color.BLACK);
         frame.setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1000, 1000));
         frame.setLocationRelativeTo(null);
         Board board = new Board();
