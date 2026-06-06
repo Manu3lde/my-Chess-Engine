@@ -26,6 +26,7 @@ public class Board extends JPanel {
 
 
     Input input = new Input(this);
+    CheckScanner checkScanner = new CheckScanner(this);
 
     public int enPassantTile = -1;
 
@@ -115,6 +116,11 @@ public class Board extends JPanel {
             return false;
         }
         if(move.piece.moveCollidesWithPiece(move.newCol, move.newRow)){return false;}
+        if(checkScanner.isKingChecked(move)){
+            return false;
+        }
+
+
 
         return true;
     }
@@ -130,8 +136,17 @@ public class Board extends JPanel {
         return row*rows + col;
     }
 
+    Piece findKing(boolean isWhite){
+        for(Piece piece : pieceList){
+            if(isWhite == piece.isWhite && piece.name.equals("King")){
+                return piece;
+            }
+        }
+        return null;
+    }
+
     public void addPieces(){
-        
+        //black
         pieceList.add(new Rook(this, 0, 0, false));
         pieceList.add(new Knight(this, 1, 0, false));
         pieceList.add(new Bishop(this, 2, 0, false));
@@ -165,8 +180,6 @@ public class Board extends JPanel {
         pieceList.add(new Pawn(this, 2, 6, true));
         pieceList.add(new Pawn(this, 1, 6, true));
         pieceList.add(new Pawn(this, 0, 6, true));
-
-
     }
 
     public void paintComponent(Graphics g){
